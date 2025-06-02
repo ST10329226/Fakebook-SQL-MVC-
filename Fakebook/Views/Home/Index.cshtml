@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Fakebook!</h1>
+    <p>Explore content and interact with users on our social platform.</p>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Navigate to Sections</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="list-group">
+                @* Link to the Users page *@
+                <a asp-controller="Users" asp-action="Index" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">View Users</h5>
+                    <p class="mb-1 text-muted">Browse all registered users and their profiles.</p>
+                </a>
+
+                @* Link to the Posts page *@
+                <a asp-controller="Post" asp-action="Index" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">View Posts</h5>
+                    <p class="mb-1 text-muted">See all posts shared by users.</p>
+                </a>
+
+                @* Link to the Comments page *@
+                <a asp-controller="Comments" asp-action="Index" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">View Comments</h5>
+                    <p class="mb-1 text-muted">Explore comments on various posts.</p>
+                </a>
+
+                @* Link to the Likes page *@
+                <a asp-controller="Likes" asp-action="Index" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">View Likes</h5>
+                    <p class="mb-1 text-muted">Check out all the likes given to posts.</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

@@ -1,0 +1,119 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosf
+*.sln.docstates
+
+# Build artifacts
+bin/
+obj/
+dist/
+publish/
+.tmp/
+.cache/
+*.o
+*.lo
+*.rej
+*.bak
+*.gz
+*.zip
+*.tar.*
+*.dll
+*.exe
+*.pdb
+*.obj
+*.idb
+*.lib
+*.exp
+*.res
+*.ncb
+*.opendb
+*.pdb
+*.bsc
+*.ilk
+*.aps
+*.pch
+*.mkf
+*.aps
+*.lck
+*.log
+*.tlb
+*.tlh
+*.tli
+*.tmp
+*.rsp
+*.pgm
+*.rcs
+*.vssscc
+*.vsscc
+*.scc
+_UpgradeReport_Files/
+_ReSharper.*/
+*.kproj
+*.user
+*.webinfo
+*.webtest
+*.rdl.data
+*.rdl.ide
+*.rdl.rpds
+*.resx.log
+*.vspscc
+*.vsscc
+*.scc
+
+# npm/Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+
+# Frontend build
+wwwroot/dist/
+
+# Package files
+*.nupkg
+*.snupkg
+*.appx
+*.msix
+*.appxbundle
+*.msixbundle
+*.appxsym
+
+# Visual Studio Code
+.vscode/
+
+# Database files
+*.mdf
+*.ldf
+*.sdf
+
+# Testing
+TestResults/
+*.trx
+.runsettings
+
+# Azure related
+.azure/
+
+# NuGet
+.nuget/
+packages/
+NuGet.Config
+*.nuget.log
+!NuGet.Config
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# User secrets (if used via CLI or VS)
+appsettings.Development.json
+appsettings.Production.json
+# IMPORTANT: If you manage secrets via User Secrets, appsettings.Development.json might contain sensitive data.
+# Consider whether you want to include it or exclude it. If excluded, ensure your team has a way to get dev secrets.
+
+# If using launchSettings.json for secrets:
+# Properties/launchSettings.json

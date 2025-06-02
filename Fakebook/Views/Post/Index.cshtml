@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Fakebook.Models.Post>
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Fakebook.Models;
+
+@{
+    ViewData["Title"] = "Posts";
+    // Ensure usernames is a SelectList. The controller now prepares it correctly.
+    var usernames = ViewData["Usernames"] as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+
+    // Capture current query parameters for pre-selection of input fields
+    string selectedSearchString = Context.Request.Query["searchString"].ToString();
+    string selectedUsernameFilter = Context.Request.Query["usernameFilter"].ToString();
+    string selectedDateFrom = Context.Request.Query["dateFrom"].ToString();
+    string selectedDateTo = Context.Request.Query["dateTo"].ToString();
+    string selectedSortOrder = Context.Request.Query["sortOrder"].ToString();
+}
+
+<h1>Posts</h1>
+
+@* FIX: Added asp-all-route-data to the form to persist all current filter values across submissions *@
+<form method="get" asp-action="Index"
+      asp-all-route-data="@(new Dictionary<string, string>
+            {
+                {"searchString", selectedSearchString},
+                {"usernameFilter", selectedUsernameFilter},
+                {"dateFrom", selectedDateFrom},
+                {"dateTo", selectedDateTo},
+                {"sortOrder", selectedSortOrder}
+            })" class="mb-4">
+
+    <div class="form-group mb-2">
+        @* Added Bootstrap form-group classes *@
+        <label for="searchString">Search:</label>
+        <input type="text" id="searchString" name="searchString" class="form-control" value="@selectedSearchString" placeholder="Search posts or usernames" />
+    </div>
+    <div class="form-group mb-2">
+        @* Added Bootstrap form-group classes *@
+        <label for="usernameFilter">Filter by user:</label>
+        <select id="usernameFilter" name="usernameFilter" class="form-control"
+                asp-items="@(new SelectList(usernames, "Value", "Text", selectedUsernameFilter))">
+            <option value="">All Users</option> @* Option for no filter *@
+        </select>
+    </div>
+    <div class="form-group mb-2">
+        @* Added Bootstrap form-group classes *@
+        <label for="dateFrom">From Date:</label>
+        <input type="date" id="dateFrom" name="dateFrom" class="form-control" value="@selectedDateFrom" />
+    </div>
+    <div class="form-group mb-2">
+        @* Added Bootstrap form-group classes *@
+        <label for="dateTo">To Date:</label>
+        <input type="date" id="dateTo" name="dateTo" class="form-control" value="@selectedDateTo" />
+    </div>
+    <div class="form-group mb-3">
+        @* Added Bootstrap form-group classes *@
+        <label for="sortOrder">Sort by:</label>
+        @* This is the corrected select for sorting. It uses asp-items. *@
+        <select id="sortOrder" name="sortOrder" class="form-control"
+                asp-items="@(new SelectList(new List<SelectListItem>
+                                {
+                                    new SelectListItem { Value = "", Text = "Default (Newest First)" },
+                                    new SelectListItem { Value = "oldest", Text = "Oldest First" }
+                                }, "Value", "Text", selectedSortOrder))">
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Apply Filters</button> @* Added Bootstrap button class *@
+</form>
+
+<hr />
+
+@if (Model == null || !Model.Any())
+{
+    <p>No posts found matching the criteria.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>User</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.Content</td>
+                    <td>@post.User?.Username</td>
+                    <td>@post.CreatedAt.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

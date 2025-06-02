@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Fakebook.Models.User>
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using Fakebook.Models;
+
+@{
+    ViewData["Title"] = "Users"; // Sets the browser page title
+
+    // Retrieve SelectLists from ViewData, with defensive null checks
+    var emailDomains = ViewData["EmailDomains"] as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+    var sortOptions = ViewData["SortOptions"] as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+
+    // Capture current query parameters to pre-fill filter inputs and dropdowns
+    string selectedSearchString = Context.Request.Query["searchString"].ToString();
+    string selectedEmailDomainFilter = Context.Request.Query["emailDomainFilter"].ToString();
+    string selectedSortOrder = Context.Request.Query["sortOrder"].ToString();
+}
+
+<h1>Users</h1>
+
+<form method="get" asp-action="Index" class="mb-4">
+    <div class="form-group mb-2">
+        <label for="searchString">Search:</label>
+        <input type="text" id="searchString" name="searchString" class="form-control"
+               value="@selectedSearchString" placeholder="Search by username, email, or bio" />
+    </div>
+    <div class="form-group mb-2">
+        <label for="emailDomainFilter">Filter by Email Domain:</label>
+        @* Using asp-items to populate the dropdown and handle selection automatically *@
+        <select id="emailDomainFilter" name="emailDomainFilter" class="form-control"
+                asp-items="@(new SelectList(emailDomains, "Value", "Text", selectedEmailDomainFilter))">
+            <option value="">All Domains</option> @* Option for no filter (shows all) *@
+        </select>
+    </div>
+    <div class="form-group mb-3">
+        <label for="sortOrder">Sort by:</label>
+        @* Using asp-items for the sort order dropdown and handle selection automatically *@
+        <select id="sortOrder" name="sortOrder" class="form-control"
+                asp-items="@(new SelectList(sortOptions, "Value", "Text", selectedSortOrder))">
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Apply Filters</button>
+</form>
+
+<hr />
+
+@* Display results or a "no users found" message *@
+@if (Model == null || !Model.Any())
+{
+    <p>No users found matching the criteria.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Bio</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td>@user.Bio</td> @* Bio is nullable, EF Core handles null display *@
+                    <td>@user.CreatedAt.ToString("g")</td> @* Formats date/time nicely *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
