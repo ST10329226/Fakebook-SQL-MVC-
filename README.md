@@ -146,6 +146,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-[Your Name] - [Your Email Address] - [Your LinkedIn Profile (Optional)] - [Your GitHub Profile (Optional)]
+[Sheldon Govender] - [Govendersheldon878@gmail.com]
 
 Project Link: [https://github.com/YourUsername/Fakebook-Mini-Social-Media-Platform](https://github.com/YourUsername/Fakebook-Mini-Social-Media-Platform)
